@@ -6,6 +6,18 @@
 - ansible.builtin.command: "chown nobody:nobody /opt/nfsdata"
 - ansible.builtin.lineinfile: path="/etc/exports" line="/opt/nfsdata	192.168.1.100(rw,sync,no_root_squash,no_subtree_check)"
 
+- ansible.builtin.command: "systemctl enable rpcbind"
+- ansible.builtin.command: "systemctl enable nfs-server"
+- ansible.builtin.command: "systemctl enable nfs-lock"
+- ansible.builtin.command: "systemctl enable nfs-idmap"
+
+- ansible.builtin.command: "systemctl start rpcbind"
+- ansible.builtin.command: "systemctl start nfs-server"
+- ansible.builtin.command: "systemctl start nfs-lock"
+- ansible.builtin.command: "systemctl start nfs-idmap"
+
+
+
 - ansible.builtin.command: "systemctl restart nfs-server"
 
 - ansible.builtin.command: "firewall-cmd --permanent --add-service=nfs"

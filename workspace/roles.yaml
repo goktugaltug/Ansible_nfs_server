@@ -1,7 +1,13 @@
-- name: Roles
-  hosts: all
+- hosts: nfs-server
   become: yes
   become_method: sudo
   become_user: root
   tasks:
-  - include: /home/nadmin/Ansible_nfs_server/workspace/tasks/nfs/main.yaml
+  - include: tasks/nfs/nfs-server.yaml
+
+- hosts: nfs-client
+  become: yes
+  become_method: sudo
+  become_user: root
+  tasks:
+  - include: tasks/nfs/nfs-client.yaml

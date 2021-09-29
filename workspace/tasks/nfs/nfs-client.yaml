@@ -1,8 +1,6 @@
 - ansible.builtin.command: "apt-get update"
 - ansible.builtin.command: "apt-get install nfs-common"
 
-- ansible.builtin.command: "systemctl stop ufw"
-- ansible.builtin.command: "systemctl disable ufw"
 
 - ansible.builtin.command: "mkdir -p /nfsdata"
 - ansible.builtin.command: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
