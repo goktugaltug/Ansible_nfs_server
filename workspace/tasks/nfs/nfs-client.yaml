@@ -4,6 +4,12 @@
 - name: install_nfs_common
   shell: "apt-get install nfs-common -y"
 
+- name: stop_firewall
+  shell: |
+    systemctl stop ufw
+    systemctl disable ufw
+
+
 - name: create mountable dir
   shell: "mkdir -p /nfsdata"
 
@@ -12,6 +18,14 @@
 
 - name: auto_mount_for_after_reboot
   shell: echo -e "\n 192.168.1.99:opt/nfsdata	/nfsdata	nfs	default	0	0" >> /etc/fstab
+
+- name: start_firewall
+  shell: |
+    systemctl start ufw
+    systemctl enable ufw
+
+
+
 
 
 #- ansible.builtin.command: "apt-get update"

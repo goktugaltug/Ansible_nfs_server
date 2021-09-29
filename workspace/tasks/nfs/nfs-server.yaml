@@ -12,10 +12,10 @@
 - name: write_in_export_file
   shell: echo -e "\n/opt/nfsdata	192.168.1.100(rw,sync,no_root_squash,no_subtree_check)" > /etc/exports
 
-- name: start_firewall
+- name: stop_firewall
   shell: |
-    systemctl start firewalld
-    systemctl enable firewalld
+    systemctl stop firewalld
+    systemctl disable firewalld
 
 - name: enable_nfs_in_system
   shell: |
@@ -27,6 +27,12 @@
     systemctl start rpcbind
     systemctl start nfs-server
 
+- name: start_firewall
+  shell: |
+    systemctl start firewalld
+    systemctl enable firewalld
+
+
 - name: add_nfs_on_firewall
   shell: |
     firewall-cmd --add-service=nfs --zone=internal --permanent
@@ -37,6 +43,21 @@
 
 - name: restart_nfs_server
   shell: "systemctl restart nfs-server"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #- ansible.builtin.command: "yum update"
