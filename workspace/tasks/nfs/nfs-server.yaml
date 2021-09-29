@@ -1,0 +1,28 @@
+- name: Update_yum
+  yum: "*"
+  state: latest
+
+- name: Installing_nfs_server
+  yum:
+    name: nfs-utils
+    state: latest
+    enabled:yes
+
+-name: Run_nfs_server
+ service:
+   name: "{{ item }}"
+   state: restarted
+   enabled: yes
+ with_items:
+   - rpcbind
+   - nfs
+   - nfs-idmap
+   - nfs-lock
+
+- name: Configuring_nfs_server
+  template:
+    src: /etc/export.j2
+    dest: /opt/nfsdata
+    owner: nadmin
+    group: wheel
+    mode: 755
