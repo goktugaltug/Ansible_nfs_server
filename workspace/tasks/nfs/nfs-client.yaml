@@ -1,3 +1,26 @@
-- ansible.builtin.command: "apt-get update"
-- apt: name=nfs-kernel-server state=latest path
-- ansible.builtin.systemd: name=nfs  state=started
+- name: Update_apt-get
+  apt: "*"
+  state: latest
+
+- name: install_nfs_client
+  apt: name=nfs-common state=latest
+
+- name: create_mountpoint_for_client
+  file:
+    path: /nfsdata
+    state: directory
+    mode: 755
+    owner: nadmin
+    group: sudo
+
+
+- name: update fstab and mount nfs share
+  mount:
+    name: /nfsdata
+    src: 192.168.1.99:/opt/nfsdata
+    fstype: nfs
+    opts: defaults,rw,bg
+    dump: 0
+    passno: 2
+    state: mounted
+
