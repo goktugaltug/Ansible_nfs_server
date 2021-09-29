@@ -1,8 +1,24 @@
-- ansible.builtin.command: "apt-get update"
-- ansible.builtin.command: "apt-get install nfs-common"
+- name: apt_update
+  shell: "apt-get update -y"
+
+- name: install_nfs_common
+  shell: "apt-get install nfs-common -y"
+
+- name: create mountable dir
+  shell: "mkdir -p /nfsdata"
+
+- name: mount dir
+  shell: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
+
+- name: auto_mount_for_after_reboot
+  shell: echo -e "\n 192.168.1.99:opt/nfsdata	/nfsdata	nfs	default	0	0" >> /etc/fstab
 
 
-- ansible.builtin.command: "mkdir -p /nfsdata"
-- ansible.builtin.command: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
+#- ansible.builtin.command: "apt-get update"
+#- ansible.builtin.command: "apt-get install nfs-common"
 
-- ansible.builtin.lineinfile: path="/etc/fstab" line="192.168.1.99:/opt/nfsdata	/nfsdata	nfs	default	0	0"
+
+#- ansible.builtin.command: "mkdir -p /nfsdata"
+#- ansible.builtin.command: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
+
+#- ansible.builtin.lineinfile: path="/etc/fstab" line="192.168.1.99:/opt/nfsdata	/nfsdata	nfs	default	0	0"
