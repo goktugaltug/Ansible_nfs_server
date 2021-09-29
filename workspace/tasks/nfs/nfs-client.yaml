@@ -1,26 +1,10 @@
-- name: Update_apt-get
-  apt: "*"
-  state: latest
+- ansible.builtin.command: "apt-get update"
+- ansible.builtin.command: "apt-get install nfs-common"
 
-- name: install_nfs_client
-  apt: name=nfs-common state=latest
+- ansible.builtin.command: "systemctl stop ufw"
+- ansible.builtin.command: "systemctl disable ufw"
 
-- name: create_mountpoint_for_client
-  file:
-    path: /nfsdata
-    state: directory
-    mode: 755
-    owner: nadmin
-    group: sudo
+- ansible.builtin.command: "mkdir -p /nfsdata"
+- ansible.builtin.command: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
 
-
-- name: update fstab and mount nfs share
-  mount:
-    name: /nfsdata
-    src: 192.168.1.99:/opt/nfsdata
-    fstype: nfs
-    opts: defaults,rw,bg
-    dump: 0
-    passno: 2
-    state: mounted
-
+- ansible.builtin.lineinfile: path="/etc/fstab" line="192.168.1.99:/opt/nfsdata	/nfsdata	nfs	default	0	0"

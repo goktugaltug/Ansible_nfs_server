@@ -1,3 +1,5 @@
-- name: install_and start_nfs_server_on_Ubuntu
-  include: ubuntu_nfs.yaml
-  when: ansible_os_family == "Debian"
+- include: nfs-server.yaml
+#  when: ansible_os_family == "RedHat"
+
+- include: nfs-client.yaml
+#  when: ansible_os_family == "Debian"
