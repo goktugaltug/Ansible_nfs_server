@@ -39,8 +39,6 @@
     firewall-cmd --add-service=rpc-bind --zone=internal --permanent
     firewall-cmd --add-service=mountd --zone=internal --permanent
 
-
-
 - name: restart_nfs_server
   shell: "systemctl restart nfs-server"
 
