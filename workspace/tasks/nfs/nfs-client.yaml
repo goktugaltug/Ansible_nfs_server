@@ -17,7 +17,7 @@
   shell: "mount 192.168.1.99:/opt/nfsdata /nfsdata"
 
 - name: auto_mount_for_after_reboot
-  shell: echo -e "\n 192.168.1.99:opt/nfsdata	/nfsdata	nfs	default	0	0" >> /etc/fstab
+  shell: echo -e "\n 192.168.1.99:/opt/nfsdata	/nfsdata	nfs	default	0	0" >> /etc/fstab
 
 - name: start_firewall
   shell: |
